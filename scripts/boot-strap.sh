@@ -1,0 +1,3 @@
+### TODO
+# - Instalar pacotes:
+#    git 

@@ -30,5 +30,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
          vb.cpus   = (CPU)
          vb.memory = (RAM)
       end
+      config.vm.provision "shell", path: "boot-strap.sh"
    end
 end
