@@ -12,6 +12,7 @@ docker-install-ubuntu ()
     curl https://get.docker.com > /tmp/get-docker.sh      
     chmod +x /tmp/get-docker.sh
     . /tmp/get-docker.sh
+    docker run hello-world
 }
 
 ### CentOS - Docker Install
@@ -24,6 +25,7 @@ docker-install-centos ()
     useradd dockeruser -c "Docker User" -s /bin/bash
     usermod -aG docker dockeruser
     su -c "docker version" -l dockeruser
+    docker run hello-world
     echo "Docker sucefully installed"
 }
 
