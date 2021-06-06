@@ -26,10 +26,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       box.vm.synced_folder (DIR_HOST), (DIR_GUEST)
       
       box.vm.provider "virtualbox" do |vb|
-         vb.gui    = true
+         vb.gui    = false
          vb.cpus   = (CPU)
          vb.memory = (RAM)
       end
-      config.vm.provision "shell", path: "boot-strap.sh"
+      config.vm.provision "shell", path: "../../scripts/boot-strap.sh"
    end
 end

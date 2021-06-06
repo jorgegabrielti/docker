@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 ### VM Setup variables
 BOX_NAME       = "centos8-stream"
 BOX            = "jgabriel/centos8-stream" # You can search for boxes at https://vagrantcloud.com/search
-HOSTNAME       = "ubuntu"
+HOSTNAME       = "centos8-stream"
 PORT_FORWARD   = "8080"
 CPU            = "1"
 RAM            = "1024"
@@ -26,10 +26,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       box.vm.synced_folder (DIR_HOST), (DIR_GUEST)
       
       box.vm.provider "virtualbox" do |vb|
-         vb.gui    = true
+         vb.gui    = false
          vb.cpus   = (CPU)
          vb.memory = (RAM)
       end
-      config.vm.provision "shell", path: "boot-strap.sh"
+      config.vm.provision "shell", path: "../../scripts/boot-strap.sh"
    end
 end
