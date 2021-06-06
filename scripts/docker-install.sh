@@ -1,45 +1,8 @@
 #!/bin/bash
-# Script for installation of Docker
-#
-# Support for follows distributions
+### Script for installation of Docker
 # 
-# Amazon Linux 2
-#
-### Distro Detect
-distro_detect () {
-
-   # Detection of supported distros
-
-   # Detect distro
-   # FIX VERSION OF PACKAGE DOCKER FOR AMAZON LINUX 2. Other distributions 
-   # are in version 19 .
-   DISTRO=$(grep -Ei 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '"')
-   
-   if [ "${DISTRO}" == "Amazon Linux 2" ]; then
-
-      if [ $(rpm -qa | grep docker) ]; then 
-         echo "Docker already installed"
-         exit 0 
-      else 
-          yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-          yum-config-manager --enable epel
-          yum repolist 
-          yum update -y
-          yum install -y docker.x86_64
-          systemctl enable --now docker
-          useradd dockeruser -c "Docker User" -s /bin/bash
-          usermod -aG docker dockeruser
-          su -c "docker version" -l dockeruser
-          echo "Docker sucefully installed"
-      fi 
-    
-    else 
-      echo "Calling http://get.docker.com"
-      curl https://get.docker.com > /tmp/install.sh      
-      chmod +x /tmp/install.sh
-      . /tmp/install.sh
-    fi 
-}
+# Support the following distros present in file:
+# .distros
 
 ### Ubuntu - Docker Install
 docker-install-ubuntu ()
@@ -55,11 +18,8 @@ docker-install-ubuntu ()
 docker-install-centos ()
 {
     echo "*** Distro Detected ==> [${DISTRO}] ***"
-    yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    yum-config-manager --enable epel
-    yum repolist 
-    yum update -y
-    yum install -y docker.x86_64
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sh ./get-docker.sh
     systemctl enable --now docker
     useradd dockeruser -c "Docker User" -s /bin/bash
     usermod -aG docker dockeruser
@@ -74,17 +34,18 @@ docker-install-centos ()
 distro_detect () 
 {
     DISTRO=$(grep -Ei 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '"')
-
+    
     case ${DISTRO} in 
         "Ubuntu 20.04.2 LTS")
             docker-install-ubuntu
         ;;
-        "")
+        "CentOS Stream 8")
             docker-install-centos
+        ;;
+        *)
+            echo "[${DISTRO} ==> Not supported!]"
         ;;
     esac
 }
-
-
 
 distro_detect
