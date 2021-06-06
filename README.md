@@ -39,12 +39,14 @@ Para subir uma nova vm com o Vagrant:
 ```bash
 cd docker/vms/ubuntu
 vagrant up
+vagrant ubuntu
 ```
 
 ### No CentOS
 ```bash
 cd docker/vms/centos
 vagrant up
+vagrant centos
 ```
 
 ### Após subir a vm, execute o comando:
