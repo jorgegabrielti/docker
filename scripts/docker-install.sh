@@ -18,6 +18,7 @@ docker-install-ubuntu ()
 ### CentOS - Docker Install
 docker-install-centos ()
 {
+    localectl set-locale LANG=en_US.UTF-8
     echo "*** Distro Detected ==> [${DISTRO}] ***"
     curl -fsSL https://get.docker.com -o get-docker.sh
     sh ./get-docker.sh
