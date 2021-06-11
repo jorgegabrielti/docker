@@ -16,9 +16,9 @@ ENV["LC_ALL"] = "en_US.UTF-8"
 
 ### Cluster Swarm
 swarm = {
-  "node1" => { :hostname => "node1", :ip => "192.168.100.210", :host => "8080" },
-  "node2" => { :hostname => "node2", :ip => "192.168.100.220", :host => "8081" },
-  "node3" => { :hostname => "node3", :ip => "192.168.100.230", :host => "8082" }
+  "kube-node1" => { :hostname => "node1", :ip => "192.168.100.210", :host => "8080" },
+  "kube-node2" => { :hostname => "node2", :ip => "192.168.100.220", :host => "8081" },
+  "kube-node3" => { :hostname => "node3", :ip => "192.168.100.230", :host => "8082" }
 }
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
          vb.memory = (RAM)
        end
        config.vm.provision "shell", path: "../../scripts/boot-strap.sh"
-       config.vm.provision "shell", path: "../../scripts/docker-install.sh"
+       #config.vm.provision "shell", path: "../../scripts/docker-install.sh"
      end
    end
 end
