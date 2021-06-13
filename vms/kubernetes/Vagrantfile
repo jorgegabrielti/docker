@@ -4,10 +4,10 @@
 VAGRANTFILE_API_VERSION = "2"
 
 ### VM Setup variables
-BOX            = "jgabriel/ubuntu-20.04" # You can search for boxes at https://vagrantcloud.com/search
+BOX            = "jgabriel/centos8-stream" # You can search for boxes at https://vagrantcloud.com/search
 CPU            = "2"
 PORT_FORWARD   = "80"
-RAM            = "2048"
+RAM            = "4096"
 DIR_HOST       = "../../scripts"
 DIR_GUEST      = "/vagrant_data"
 
@@ -30,7 +30,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
        box.vm.network "private_network", ip: "#{i[:ip]}"
        box.vm.network "forwarded_port", guest:"80", host:"#{i[:host]}"
        box.vm.synced_folder (DIR_HOST), (DIR_GUEST)
-      
        box.vm.provider "virtualbox" do |vb|
          vb.gui    = false
          vb.cpus   = (CPU)
